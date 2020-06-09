@@ -1,4 +1,0 @@
-[submodule "ppcdubai/odoo_private"]
-	path = ppcdubai/odoo_private
-	url = git@github.com:ppcdubai/odoo_private.git
-	branch = uae_payroll

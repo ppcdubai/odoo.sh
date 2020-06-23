@@ -1,4 +1,0 @@
-[submodule "ppcdubai/odoo-private-addons"]
-	path = ppcdubai/odoo-private-addons
-	url = git@github.com:ppcdubai/odoo-private-addons.git
-	branch = dev

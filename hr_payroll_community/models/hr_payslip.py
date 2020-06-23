@@ -31,7 +31,6 @@ class hr_employee(models.Model):
 class HrPayslip(models.Model):
     _name = 'hr.payslip'
     _description = 'Pay Slip'
-    _inherit = 'hr.employee'
 
     struct_id = fields.Many2one('hr.payroll.structure', string='Structure',
                                 readonly=True, states={'draft': [('readonly', False)]},

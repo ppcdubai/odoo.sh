@@ -27,9 +27,10 @@ class hr_employee(models.Model):
         for tsheet in timesheets: #counting duration from timesheets
             duration += tsheet.unit_amount   
         return duration
-        
+
 class HrPayslip(models.Model):
     _name = 'hr.payslip'
+    _inherit = 'hr.employee'
     _description = 'Pay Slip'
 
     struct_id = fields.Many2one('hr.payroll.structure', string='Structure',
@@ -181,6 +182,12 @@ class HrPayslip(models.Model):
         """
         res = []
         # fill only if the contract as a working schedule linked
+        duration = 0.0
+        tsheet_obj = self.env['account.analytic.line']
+        timesheets = tsheet_obj.search([('user_id', '=', self.user_id.id),('date', '>=', payslip.date_from),('date', '<=', payslip.date_to)])
+        for tsheet in timesheets: #counting duration from timesheets
+            duration += tsheet.unit_amount
+
         for contract in contracts.filtered(lambda contract: contract.resource_calendar_id):
             day_from = datetime.combine(fields.Date.from_string(date_from), time.min)
             day_to = datetime.combine(fields.Date.from_string(date_to), time.max)
@@ -214,11 +221,11 @@ class HrPayslip(models.Model):
             work_data = contract.employee_id.get_work_days_data(day_from, day_to,
                                                                 calendar=contract.resource_calendar_id)
             attendances = {
-                'name': _("Normal Working Days paid at 100%"),
+                'name': _("Normal Working Days from timesheets"),
                 'sequence': 1,
-                'code': 'WORK100',
+                'code': 'Attendance',
                 'number_of_days': work_data['days'],
-                'number_of_hours': work_data['hours'],
+                'number_of_hours': duration,
                 'contract_id': contract.id,
             }
 

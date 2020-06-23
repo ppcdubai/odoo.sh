@@ -193,8 +193,8 @@ class HrPayslip(models.Model):
                 'number_of_hours': duration,
                 'contract_id': contract.id,
             }
-            res.append(attendances)
-            """
+        res.append(attendances)
+        """
         # fill only if the contract as a working schedule linked
         for contract in contracts.filtered(lambda contract: contract.resource_calendar_id):
             day_from = datetime.combine(fields.Date.from_string(date_from), time.min)

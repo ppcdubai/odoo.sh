@@ -180,6 +180,21 @@ class HrPayslip(models.Model):
         @return: returns a list of dict containing the input that should be applied for the given contract between date_from and date_to
         """
         res = []
+        duration = 0.0
+        tsheet_obj = self.env['account.analytic.line']
+        timesheets = tsheet_obj.search([('user_id', '=', self.user_id.id),('date', '>=', payslip.date_from),('date', '<=', payslip.date_to)])
+        for tsheet in timesheets: #counting duration from timesheets
+            duration += tsheet.unit_amount  
+        attendances = {
+                'name': _("Working hours from Timesheet"),
+                'sequence': 1,
+                'code': 'Timesheet',
+                'number_of_days': '0',
+                'number_of_hours': duration,
+                'contract_id': contract.id,
+            }
+            res.append(attendances)
+            """
         # fill only if the contract as a working schedule linked
         for contract in contracts.filtered(lambda contract: contract.resource_calendar_id):
             day_from = datetime.combine(fields.Date.from_string(date_from), time.min)
@@ -224,6 +239,7 @@ class HrPayslip(models.Model):
 
             res.append(attendances)
             res.extend(leaves.values())
+            """
         return res
 
     @api.model

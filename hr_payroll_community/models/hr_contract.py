@@ -29,7 +29,7 @@ class HrContract(models.Model):
     meal_allowance = fields.Monetary(string="Meal Allowance", help="Meal allowance")
     medical_allowance = fields.Monetary(string="Medical Allowance", help="Medical allowance")
     other_allowance = fields.Monetary(string="Other Allowance", help="Other allowances")
-    salary_per_h = fields.Float(string= "Salary per Hour")
+    salary_per_h = fields.Float(string= "Standard Salary per Hour")
 
     def get_all_structures(self):
         """

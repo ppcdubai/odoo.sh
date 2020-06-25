@@ -16,17 +16,6 @@ from odoo.tools import float_utils
 # This will generate 16th of days
 ROUNDING_FACTOR = 16
 
-class hr_employee(models.Model):
-    _inherit = 'hr.employee'
-
-    @api.model
-    def getDuration(self, payslip):
-        duration = 0.0
-        tsheet_obj = self.env['account.analytic.line']
-        timesheets = tsheet_obj.search([('user_id', '=', self.user_id.id),('date', '>=', payslip.date_from),('date', '<=', payslip.date_to)])
-        for tsheet in timesheets: #counting duration from timesheets
-            duration += tsheet.unit_amount   
-        return duration
         
 class HrPayslip(models.Model):
     _name = 'hr.payslip'

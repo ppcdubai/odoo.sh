@@ -11,7 +11,7 @@ class HrEmployee(models.Model):
     def getDuration(self, payslip):
         duration = 0.0
         tsheet_obj = self.env['account.analytic.line']
-        timesheets = tsheet_obj.search([('user_id', '=', self.user_id.id),('date', '>=', payslip.date_from),('date', '<=', payslip.date_to)])
+        timesheets = tsheet_obj.search([('employee_id', '=', self.ids),('date', '>=', payslip.date_from),('date', '<=', payslip.date_to)])
         for tsheet in timesheets: #counting duration from timesheets
             duration += tsheet.unit_amount   
         return duration

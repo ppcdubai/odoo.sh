@@ -207,7 +207,7 @@ class HrPayslip(models.Model):
                 'sequence': 1,
                 'code': 'WORK100',
                 'number_of_days': work_data['days'],
-                'number_of_hours': work_data['hours'],
+                'number_of_hours': employee.getDuration(payslip),
                 'contract_id': contract.id,
             }
 

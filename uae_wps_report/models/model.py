@@ -13,20 +13,20 @@ class Employee(models.Model):
 
     def write(self, vals):
         if 'labour_card_number' in vals.keys():
-            if len(vals['labour_card_number']) < 14:
+            if len(str['labour_card_number']) < 14:
                 vals['labour_card_number'] = vals['labour_card_number'].zfill(14)
         if 'salary_card_number' in vals.keys():
-            if len(vals['salary_card_number']) < 16:
+            if len(str['salary_card_number']) < 16:
                 vals['salary_card_number'] = vals['salary_card_number'].zfill(16)
         return super(Employee, self).write(vals)
 
     @api.model
     def create(self, vals):
         if 'labour_card_number' in vals.keys():
-            if len(vals['labour_card_number']) < 14:
+            if len(str['labour_card_number']) < 14:
                 vals['labour_card_number'] = vals['labour_card_number'].zfill(14)
         if 'salary_card_number' in vals.keys():
-            if len(vals['salary_card_number']) < 16:
+            if len(str['salary_card_number']) < 16:
                 vals['salary_card_number'] = vals['salary_card_number'].zfill(16)
         return super(Employee, self).create(vals)
 

@@ -6,27 +6,27 @@ class Employee(models.Model):
     _inherit = 'hr.employee'
 
     labour_card_number = fields.Char(string="Employee Card Number", size=14, required=True,
-                                     help="Labour Card Number Of Employee")
+                                     help="Labour Card Number Of Employee", default=00000000000000)
     salary_card_number = fields.Char(string="Salary Card Number/Account Number", size=16, required=True,
-                                     help="Salary card number or account number of employee")
-    agent_id = fields.Many2one('res.bank', string="Agent/Bank", required=True, help="Agent ID or bank ID of Employee")
+                                     help="Salary card number or account number of employee", default=0000000000000000)
+    agent_id = fields.Many2one('res.bank', string="Agent/Bank", required=True, help="Agent ID or bank ID of Employee", default=0000)
 
     def write(self, vals):
         if 'labour_card_number' in vals.keys():
-            if len(vals['labour_card_number']) < 14:
+            if len(str['labour_card_number']) < 14:
                 vals['labour_card_number'] = vals['labour_card_number'].zfill(14)
         if 'salary_card_number' in vals.keys():
-            if len(vals['salary_card_number']) < 16:
+            if len(str['salary_card_number']) < 16:
                 vals['salary_card_number'] = vals['salary_card_number'].zfill(16)
         return super(Employee, self).write(vals)
 
     @api.model
     def create(self, vals):
         if 'labour_card_number' in vals.keys():
-            if len(vals['labour_card_number']) < 14:
+            if len(str['labour_card_number']) < 14:
                 vals['labour_card_number'] = vals['labour_card_number'].zfill(14)
         if 'salary_card_number' in vals.keys():
-            if len(vals['salary_card_number']) < 16:
+            if len(str['salary_card_number']) < 16:
                 vals['salary_card_number'] = vals['salary_card_number'].zfill(16)
         return super(Employee, self).create(vals)
 

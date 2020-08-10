@@ -5,11 +5,11 @@ from odoo import models, fields, api
 class Employee(models.Model):
     _inherit = 'hr.employee'
 
-    labour_card_number = fields.Char(string="Employee Card Number", size=14, required=True,
+    labour_card_number = fields.Char(string="Employee Card Number", size=14, required=False,
                                      help="Labour Card Number Of Employee", default=00000000000000)
-    salary_card_number = fields.Char(string="Salary Card Number/Account Number", size=16, required=True,
+    salary_card_number = fields.Char(string="Salary Card Number/Account Number", size=16, required=False,
                                      help="Salary card number or account number of employee", default=0000000000000000)
-    agent_id = fields.Many2one('res.bank', string="Agent/Bank", required=True, help="Agent ID or bank ID of Employee", default=0000)
+    agent_id = fields.Many2one('res.bank', string="Agent/Bank", required=False, help="Agent ID or bank ID of Employee", default=0000)
 
     def write(self, vals):
         if 'labour_card_number' in vals.keys():
